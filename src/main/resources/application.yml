@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: generation
+
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/my-user
+    username: postgres
+    password: postgres
+    schemas: public
+
+  jpa:
+    hibernate:
+      ddl-auto: none  # Disable Hibernate schema update when using Flyway
+    properties:
+      hibernate:
+        default_schema: ${DATABASE_SCHEMA:public}
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  flyway:
+    locations:
+      - classpath:db/migration
+    enabled: false
+    schemas: ${DATABASE_SCHEMA:public}
+    baseline-on-migrate: true  # Optional if you're starting with a fresh database
