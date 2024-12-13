@@ -17,21 +17,21 @@ public class ProductController {
 
 
     @GetMapping("/all")
-    public ResponseEntity<String> getAllProducts() {
-        return ResponseEntity.ok(productService.getAllProducts());
+    public String getAllProducts() {
+        return productService.getAllProducts();
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/{productId}")
-    public ResponseEntity<String> getProductWithId(
+    public String getProductWithId(
             @PathVariable Long productId
     ) {
-        return ResponseEntity.ok(productService.getProductWithId(productId));
+        return productService.getProductWithId(productId);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/Welcome")
-    public ResponseEntity<String> getWelcome() {
-        return ResponseEntity.ok(productService.getWelcome());
+    public String getWelcome() {
+        return productService.getWelcome();
     }
 }
