@@ -15,7 +15,7 @@ public class ProductController {
    @Autowired
     ProductService productService;
 
-
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/all")
     public ResponseEntity<String> getAllProducts() {
         return ResponseEntity.ok(productService.getAllProducts());
@@ -29,7 +29,6 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductWithId(productId));
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/Welcome")
     public ResponseEntity<String> getWelcome() {
         return ResponseEntity.ok(productService.getWelcome());

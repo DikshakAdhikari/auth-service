@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Disables CSRF (customize as per your needs)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/users").permitAll() // Open access
-                        .requestMatchers("/api/v1/products/all").permitAll() // Open access
+                        .requestMatchers("/api/v1/products/Welcome").permitAll() // Open access
                         .anyRequest().authenticated() // All other requests require authentication
                 )
                  .formLogin(Customizer.withDefaults())
