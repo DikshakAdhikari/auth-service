@@ -1,7 +1,6 @@
-package com.points.points.Services;
+package com.points.points.Service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Service
 public class ProductService {

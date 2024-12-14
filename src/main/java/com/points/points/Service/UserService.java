@@ -1,4 +1,4 @@
-package com.points.points.Services;
+package com.points.points.Service;
 
 import com.points.points.Entity.User;
 import com.points.points.Repository.UserRepository;

@@ -1,17 +1,29 @@
 package com.points.points.Controller;
 
-import com.points.points.Services.ProductService;
+import com.points.points.Configuration.SecurityConfig;
+import com.points.points.Service.JwtService;
+import com.points.points.Service.ProductService;
+import com.points.points.dto.AuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductController {
+
+    @Autowired
+    SecurityConfig securityConfig;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    JwtService jwtService;
    @Autowired
     ProductService productService;
 
@@ -33,5 +45,20 @@ public class ProductController {
     @GetMapping("/Welcome")
     public String getWelcome() {
         return productService.getWelcome();
+    }
+
+    @PostMapping("/authenticate")
+    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+        //Before we allow to get the token we need to authenticate that particular user
+        //As we know from spring secrurity flow from filter request will deligate to the authentication manager for authentication, so we autowire/inject authentication manager
+        //So we use AuthenticationManger to validate the user, if it's the correct user then only give correct token
+
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        if(authenticate.isAuthenticated()) {
+            return jwtService.generateToken(authRequest.getUsername());
+        } else {
+            throw new UsernameNotFoundException("Invalid User Request !");
+        }
+
     }
 }

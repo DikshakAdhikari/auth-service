@@ -1,7 +1,7 @@
 package com.points.points.Controller;
 
 import com.points.points.Entity.User;
-import com.points.points.Services.UserService;
+import com.points.points.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
