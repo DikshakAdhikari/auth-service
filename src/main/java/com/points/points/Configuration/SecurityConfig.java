@@ -2,7 +2,6 @@ package com.points.points.Configuration;
 
 import com.points.points.Filter.JwtAuthFilter;
 import com.points.points.Service.JwtService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
