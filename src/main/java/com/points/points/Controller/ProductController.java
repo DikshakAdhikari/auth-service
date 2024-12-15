@@ -53,12 +53,12 @@ public class ProductController {
         //As we know from spring secrurity flow from filter request will deligate to the authentication manager for authentication, so we autowire/inject authentication manager
         //So we use AuthenticationManger to validate the user, if it's the correct user then only give correct token
 
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        Authentication authenticate = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         if(authenticate.isAuthenticated()) {
             return jwtService.generateToken(authRequest.getUsername());
         } else {
             throw new UsernameNotFoundException("Invalid User Request !");
         }
-
     }
 }
