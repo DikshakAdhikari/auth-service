@@ -50,7 +50,7 @@ public class ProductController {
     @PostMapping("/authenticate")
     public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         //Before we allow to get the token we need to authenticate that particular user
-        //As we know from spring secrurity flow from filter request will deligate to the authentication manager for authentication, so we autowire/inject authentication manager
+        //As we know from spring security flow from filter request will delegate to the authentication manager for authentication, so we autowire/inject authentication manager
         //So we use AuthenticationManger to validate the user, if it's the correct user then only give correct token
 
         Authentication authenticate = authenticationManager.authenticate(

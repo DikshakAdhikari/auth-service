@@ -40,12 +40,16 @@ public class JwtAuthFilter extends OncePerRequestFilter { //Use this JwtAuthFilt
         String username = null;
         if(authHeader != null && authHeader.startsWith("Bearer")) {
             token = authHeader.substring(7); //Means just remove the 1st 7 characters inorder to remove Bearer
+            System.out.println(token);
             username = jwtService.extractUsername(token);
+            System.out.println("filterr "+ username);
         }
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username); //userDetails contains information like username, password, isEnable etc etc.
+            System.out.println("userdetails "+ userDetails);
             if(jwtService.validateToken(token, userDetails)) {// Checking token is validated and also not expired
                 //If it is valid create authentication object and set to a SecurityContextHolder
+                System.out.println("ddddddddddddddddddddddddd");
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
